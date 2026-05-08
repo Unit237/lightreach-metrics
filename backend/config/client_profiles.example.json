@@ -1,0 +1,41 @@
+{
+  "default_client_id": "acme",
+  "clients": [
+    {
+      "client_id": "acme",
+      "client_name": "Acme Corp",
+      "github": {
+        "owner": "acme-inc",
+        "repo": "acme-product",
+        "token_env": "ACME_GITHUB_TOKEN"
+      },
+      "branch_policy": {
+        "baseline_patterns": ["main", "release/*"],
+        "experiment_patterns": ["dev/*", "exp/*", "feature/*"]
+      },
+      "signal_routing": {
+        "webhook_url": "https://signal.lightreach.io/hooks/regressions/acme",
+        "webhook_token_env": "ACME_SIGNAL_WEBHOOK_TOKEN",
+        "cooldown_seconds": 300
+      }
+    },
+    {
+      "client_id": "globex",
+      "client_name": "Globex",
+      "github": {
+        "owner": "globex",
+        "repo": "platform",
+        "token_env": "GLOBEX_GITHUB_TOKEN"
+      },
+      "branch_policy": {
+        "baseline_patterns": ["main", "master", "release/*"],
+        "experiment_patterns": ["dev/*", "experiment/*", "exp/*"]
+      },
+      "signal_routing": {
+        "webhook_url": "https://signal.lightreach.io/hooks/regressions/globex",
+        "webhook_token_env": "GLOBEX_SIGNAL_WEBHOOK_TOKEN",
+        "cooldown_seconds": 600
+      }
+    }
+  ]
+}
