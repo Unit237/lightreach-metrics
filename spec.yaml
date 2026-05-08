@@ -1,0 +1,22 @@
+schema: spec/v0.1
+name: lightreach-metrics
+description: ''
+spec:
+  entry: docs/product.md
+  include:
+  - docs/**/*.md
+  exclude: []
+compiler:
+  engine: anthropic
+  model: claude-sonnet-4-5
+  temperature: 0.2
+  max_output_tokens: 8000
+output:
+  target: ./out
+  changelog: true
+  commit_style: conventional
+approvals:
+  required: 1
+cloud:
+  project: lightreach-metrics
+  bundle_id: bdl_WJ61ItwwBQh5n1-8QGK8Oh_5
