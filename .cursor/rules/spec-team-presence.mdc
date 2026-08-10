@@ -1,0 +1,54 @@
+---
+description: Spec Live locks check before file edits
+alwaysApply: true
+---
+
+# Spec Live — check coordination before editing
+
+This bundle uses **Spec Live**. Before planning or editing, run `spec status`
+to verify the machine workday switch and watcher, then read
+`.spec/team-coordination.md` when it exists. It lists active agent
+objectives, progress, claimed paths, and recent handoffs. Avoid
+duplicating active work. The file is removed automatically when the
+last active round finishes, so absence is normal.
+
+Before you edit any file in this project, run:
+
+```bash
+spec locks check <bundle-relative-path>
+```
+
+The exit code is the contract:
+
+- **0** → safe to proceed (no teammate on that file, or no fresh mirror).
+- **2** → at least one teammate likely has the file dirty. Show the
+  warning and ask the user before overwriting.
+
+`spec locks check` ignores a **stale** `.spec/team-presence.json` (for
+example when `spec watch` is not running) so you do not act on zombie
+data. For a readable summary you can also open
+`.spec/team-editing-brief.md` (updated by `spec watch`).
+
+**Git push handoffs:** when teammates run `spec team request-push <handle>`
+(or `/push@handle` from `spec team watch` in a bundle cwd), rows land in
+`.spec/team-push-requests.yaml` and are merged into the same mirror files.
+If **the user's Spec handle** matches `to_handle` in that YAML, help them
+**commit** if needed and **`git push`** to `origin` on the listed branch
+(never force-push unless the user explicitly asks).
+
+Legacy: `spec presence check` is still available — same exit codes,
+but it does not apply the stale-mirror guard.
+
+You do **not** need to run this for files you are creating fresh
+under your own scaffolding (no path conflict possible). Only run it
+when modifying files that already exist or that other teammates
+might also be touching.
+
+This rule pairs with the Claude Code `PreToolUse` hook in
+`.claude/settings.json`, which performs the same check
+automatically for Edit / Write / MultiEdit tool calls.
+
+The human operator controls local sharing with `spec on` at the start of the
+workday and `spec off` when finished. Agents must not change that switch unless
+the user explicitly asks. When it is OFF, say that cross-machine context may be
+unavailable and continue using the fail-open lock result.

@@ -1,0 +1,42 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "spec hooks claude-post-tool-use",
+            "spec_managed": true,
+            "spec_version": 2,
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|MultiEdit|Write|NotebookEdit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "spec hooks claude-pre-tool-use",
+            "spec_managed": true,
+            "spec_version": 2,
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|MultiEdit|Write|NotebookEdit"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "spec live ensure --quiet && spec hooks claude-user-prompt",
+            "spec_managed": true,
+            "spec_version": 2,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}

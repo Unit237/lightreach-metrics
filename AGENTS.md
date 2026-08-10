@@ -38,3 +38,30 @@ code for this bundle:
 - Don't edit files under `out/` by hand; they are regenerated on every
   compile.
 - Don't commit `.spec/` — it's local index state.
+
+<!-- >>> spec live coordination >>>
+## Spec Live — multi-agent coordination
+
+This bundle uses **Spec Live** to coordinate coding agents working in parallel.
+
+Before planning or editing:
+
+1. Run `spec status` to verify this machine's workday switch and watchers.
+   Read `.spec/team-coordination.md` when it exists; the brief lists active
+   objectives, progress, claimed paths, and recent handoffs.
+2. Do not duplicate an active objective. Split the work, wait for the handoff,
+   or tell the user about the overlap.
+3. Before modifying an existing or potentially shared path, run
+   `spec locks check <bundle-relative-path>`. Exit `0` means clear; exit `2`
+   means another agent may be editing it, so surface the conflict before
+   proceeding.
+4. Report material progress, paths changed, blockers, and the final outcome in
+   normal assistant messages. Spec Live shares those updates automatically.
+
+Treat the coordination brief as advisory and the lock check as the mechanical
+conflict signal. The brief disappears when the last active round finishes, so
+its absence is normal. When Spec is OFF or a watcher is stopped, cross-machine
+context can be stale or absent and lock checks deliberately fail open. Only the
+human operator should change the workday switch with `spec on` / `spec off`.
+Never hand-edit files under `.spec/`.
+<!-- <<< spec live coordination <<< -->
