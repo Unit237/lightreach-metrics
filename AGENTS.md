@@ -65,7 +65,9 @@ context can be stale or absent and lock checks deliberately fail open. Only the
 human operator should change the workday switch with `spec on` / `spec off`.
 Never hand-edit files under `.spec/`.
 <!-- <<< spec live coordination <<< -->
-\n++<!-- >>> invariant-driven development >>>
+\n++
+
+<!-- >>> invariant-driven development >>>
 ## Invariant-driven development
 
 Before fixing localized authorization, identity, lifecycle, privacy,
